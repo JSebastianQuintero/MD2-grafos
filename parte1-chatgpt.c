@@ -103,6 +103,14 @@ Grafo readGraphFromStdin() {
         }
     }
 
+    for (u32 i = 0; i < graph->numVertices; i++) {
+        vertexNode* current = graph->vertexList[i];
+        while (current != NULL) {
+            if (graph->delta < current->grade) graph->delta = current->grade; 
+            current = current->collisionCase;
+        }
+    }
+
     return graph; 
 }
 
@@ -183,19 +191,22 @@ u32 Delta(Grafo G){
     return G->delta;
 }
 
-/* 
+u32 Nombre(u32 i,Grafo G){
+    return G->vertexList[i]->vertex; // some vertex will be ignored 
+}
 
+u32 Grado(u32 i,Grafo G){
+    return G->vertexList[i]->grade;
+}
+u32 IndiceVecino(u32 j,u32 i,Grafo G){
+    return G->vertexList[i]->adjacencyList[j].vertex;
+}
 
-u32 Nombre(u32 i,Grafo G);
-u32 Grado(u32 i,Grafo G);
-u32 IndiceVecino(u32 j,u32 i,Grafo G);
-
- */
 
  // Driver code
 int main() {
     Grafo grafo = ConstruirGrafo();
-    //printGraph(grafo);
+    printGraph(grafo);
     DestruirGrafo(grafo);
     return 0;
 }

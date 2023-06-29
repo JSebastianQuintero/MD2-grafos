@@ -27,7 +27,7 @@ process_files() {
       head -n 1 "$path/$file"
       # Execute the program with the file as input
       start_time=$(date +%s.%N)
-      valgrind ./program < "$path/$file"
+      ./program < "$path/$file"
 
       if [ $? -ne 0 ]; then
         echo "Program failed. Exiting."
